@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: stg_dog_api_breeds
+    description: "Cleaned and normalised dog breed data from the Dog API bronze layer"
+    columns:
+      - name: breed_id
+        description: "Unique identifier for each breed"
+        tests:
+          - not_null
+          - unique
+
+      - name: breed_name
+        description: "Name of the breed"
+        tests:
+          - not_null
+
+      - name: breed_group
+        description: "Breed classification group"
+        tests:
+          - not_null
+
+      - name: life_span_min_yrs
+        description: "Minimum life span in years — may be null for some breeds"
+
+      - name: life_span_max_yrs
+        description: "Maximum life span in years — may be null for some breeds"
+
+      - name: bred_for
+        description: "Originally bred purpose — currently unpopulated by the API"
+
+      - name: perfect_for
+        description: "Ideal owner type — currently unpopulated by the API"

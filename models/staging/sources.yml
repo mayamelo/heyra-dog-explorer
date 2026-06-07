@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: cogent-treat-409814
+    schema: bronze
+    tables:
+      - name: dog_api_raw
+        description: "Raw dog breed data loaded from the Dog API"

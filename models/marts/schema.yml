@@ -1,0 +1,71 @@
+version: 2
+
+models:
+  - name: dim_breed
+    description: "One row per dog breed with descriptive attributes. Used for filtering and grouping in analytics."
+    columns:
+      - name: breed_id
+        description: "Unique identifier for each breed"
+        tests:
+          - not_null
+          - unique
+      - name: breed_name
+        description: "Name of the breed"
+        tests:
+          - not_null
+      - name: breed_group
+        description: "Breed classification group e.g. Herding, Hound, Toy"
+        tests:
+          - not_null
+      - name: origin
+        description: "Country or region where the breed originated"
+      - name: temperament
+        description: "Comma-separated list of temperament traits"
+      - name: height_male_cm
+        description: "Height range for males in centimetres e.g. 45-53"
+      - name: height_female_cm
+        description: "Height range for females in centimetres"
+      - name: weight_male_kg
+        description: "Weight range for males in kilograms"
+      - name: weight_female_kg
+        description: "Weight range for females in kilograms"
+
+  - name: fact_weight_life_span
+    description: "Numeric weight and life span metrics per breed. Primary table for analytics and dashboard charts."
+    columns:
+      - name: breed_id
+        description: "Unique identifier for each breed"
+        tests:
+          - not_null
+          - unique
+      - name: breed_name
+        description: "Name of the breed"
+        tests:
+          - not_null
+      - name: life_span_avg_yrs
+        description: "Average predicted life span in years"
+        tests:
+          - not_null
+      - name: size_class
+        description: "Derived size classification: Small, Medium, Large, Giant or Unknown"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Small', 'Medium', 'Large', 'Giant', 'Unknown']
+
+  - name: dim_temperament
+    description: "One row per breed per temperament trait. Used for temperament analysis and family-friendly filtering."
+    columns:
+      - name: breed_id
+        description: "Breed identifier"
+        tests:
+          - not_null
+      - name: temperament_trait
+        description: "Individual temperament trait in lowercase"
+        tests:
+          - not_null
+      - name: breed_name
+        description: "Name of the breed"
+        tests:
+          - not_null
