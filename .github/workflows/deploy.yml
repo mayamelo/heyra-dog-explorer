@@ -1,0 +1,35 @@
+name: Deploy Cloud Function
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Deploy Cloud Function
+        run: |
+          gcloud functions deploy ingest-dog-breeds \
+            --no-gen2 \
+            --runtime=python311 \
+            --region=europe-west1 \
+            --source=ingestion \
+            --entry-point=ingest_dog_breeds \
+            --trigger-http \
+            --allow-unauthenticated \
+            --service-account=dog-pipeline-heyra@cogent-treat-409814.iam.gserviceaccount.com \
+            --timeout=120
