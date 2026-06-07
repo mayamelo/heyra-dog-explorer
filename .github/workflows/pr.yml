@@ -1,0 +1,19 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Verify ingestion files exist
+        run: |
+          test -f ingestion/main.py
+          test -f ingestion/requirements.txt
+          echo "All ingestion files present"
