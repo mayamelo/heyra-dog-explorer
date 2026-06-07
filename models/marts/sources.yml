@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: gold
+    database: cogent-treat-409814
+    schema: gold
+    tables:
+      - name: dim_breed
+        description: "Entire breed dimension table, with one row per breed"
+      - name: dim_temperament
+        description: "Entire temperament dimension table, with one row per temperament"
+      - name: fact_breed_temperament
+        description: "Fact table linking breeds and temperaments, with one row per breed-temperament combination"
